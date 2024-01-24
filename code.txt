@@ -1,0 +1,38 @@
+
+
+
+# # Generate synthetic data for founders
+# founders_data = {
+#     'Founder': [fake.name() for _ in range(1000)],
+#     'Skills': [],
+#     'Experience': [],
+# }
+
+# for _ in range(1000):
+#     skills, experience = generate_fake_skills_and_experience()
+#     founders_data['Skills'].append(skills)
+#     founders_data['Experience'].append(experience)
+
+
+# # Convert data to a pandas DataFrame
+# df_founders = pd.DataFrame(founders_data)
+
+# # Writing founder data to a CSV file
+# df_founders.to_csv('founders_data.csv', index=False)
+
+
+########################################################
+founders_data_from_csv['tags'] = founders_data_from_csv['Skills'] + ' ' + founders_data_from_csv['Experience']
+last_version_founder = founders_data_from_csv[['Founder', 'tags']]
+print(last_version_founder.head())
+
+# Display the DataFrame
+print(last_version_founder)
+
+# Create a TF-IDF vectorizer for founders
+tfidf_vectorizer_founders = TfidfVectorizer(stop_words='english')
+tfidf_matrix_founders = tfidf_vectorizer_founders.fit_transform(founders_data_from_csv['tags'])
+
+# Display the TF-IDF matrix for founders
+print("TF-IDF matrix for founders:")
+print(tfidf_matrix_founders.toarray())
